@@ -26,7 +26,7 @@ CALL SCAN_NUM
 mov num2, cx
 
 GOTOXY 1,4
-print 'Escolha a operacao (+), (-), (*) e (/):'
+print 'Escolha a operacao aritmeticas (+), (-), (*) e (/)  logicas:(a)and, (o)or, (x)xor:'
 mov ah, 1
 int 21h
 mov opr, al
@@ -46,6 +46,15 @@ je multiplicacao
 cmp opr, '/'
 je divisao 
 
+cmp opr, 'a'
+je log_and
+
+cmp opr, 'o'
+je log_or
+
+cmp opr, 'x'
+je log_xor  
+
 
 adicao:
 mov ax, num1
@@ -54,14 +63,11 @@ CALL PRINT_NUM    ; print numero.
 jmp sair
 
 
-
 subtracao:
 mov ax, num1
 sub ax, num2
 CALL PRINT_NUM   
 jmp sair
-
-
 
 
 multiplicacao:
@@ -73,6 +79,24 @@ jmp sair
 divisao:
 mov ax, num1
 idiv num2  
+CALL PRINT_NUM
+jmp sair
+
+log_and:
+mov ax, num1
+and ax,num2  
+CALL PRINT_NUM
+jmp sair
+
+log_or:
+mov ax, num1
+or ax,num2  
+CALL PRINT_NUM
+jmp sair
+
+log_xor:
+mov ax, num1
+xor ax,num2  
 CALL PRINT_NUM
 jmp sair
 
